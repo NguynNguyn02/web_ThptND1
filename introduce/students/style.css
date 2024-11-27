@@ -1,0 +1,118 @@
+.teacher-slider-section {
+  background-color: #f4f7f6;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.teacher-slider-container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.teacher-slider {
+  display: flex;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.teacher-slide {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+  transition: transform 0.5s ease;
+}
+
+.teacher-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.teacher-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.teacher-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: 5px solid var(--primary-color);
+}
+
+.teacher-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.teacher-card p {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.teacher-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(26, 86, 219, 0.1);
+  color: var(--primary-color);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.teacher-slider-btn:hover {
+  background-color: rgba(26, 86, 219, 0.2);
+}
+
+.teacher-slider-prev {
+  left: -50px;
+}
+
+.teacher-slider-next {
+  right: -50px;
+}
+
+.teacher-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.teacher-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.teacher-dot.active {
+  background-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .teacher-slide {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .teacher-slider-btn {
+    display: none;
+  }
+}

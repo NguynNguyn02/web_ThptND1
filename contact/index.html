@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên Hệ - THPT Nam Đàn 1</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styleheader.css" />
+  </head>
+  <body>
+    <header>
+      <div class="banner">
+        <img src="./image/banner.png" alt="Banner trường học" />
+      </div>
+      <nav class="navbar">
+        <div class="nav-container">
+          <a href="/" class="logo">THPT Nam Đàn 1</a>
+          <ul class="nav-menu">
+            <li class="menu-item"><a href="/">Trang chủ</a></li>
+            <li class="menu-item has-submenu">
+              <span class="menu-label">Giới thiệu</span>
+              <ul class="submenu">
+                <li class="submenu-item has-submenu">
+                  <span class="submenu-label">Lịch sử trường</span>
+                  <ul class="third-menu">
+                    <li class="third-menu-item">
+                      <a href="../introduce/history/index.html"
+                        >Quá trình hình thành</a
+                      >
+                    </li>
+                    <li class="third-menu-item">
+                      <a href="/lich-su/thanh-tich">Thành tích nổi bật</a>
+                    </li>
+                    <li class="third-menu-item">
+                      <a href="../introduce/students/index.html"
+                        >Học sinh tiêu biểu</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="submenu-item has-submenu">
+                  <span class="submenu-label">Cơ cấu tổ chức</span>
+                  <ul class="third-menu">
+                    <li class="third-menu-item">
+                      <a href="../introduce/teachers/index.html"
+                        >Ban giám hiệu</a
+                      >
+                    </li>
+                    <li class="third-menu-item">
+                      <a href="/to-chuc/to-chuyen-mon">Tổ chuyên môn</a>
+                    </li>
+                    <li class="third-menu-item">
+                      <a href="/to-chuc/doan-the">Đoàn thể</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="submenu-item has-submenu">
+                  <span class="submenu-label">Cơ sở vật chất</span>
+                  <ul class="third-menu">
+                    <li class="third-menu-item">
+                      <a href="/co-so/phong-hoc">Phòng học</a>
+                    </li>
+                    <li class="third-menu-item">
+                      <a href="/co-so/thu-vien">Thư viện</a>
+                    </li>
+                    <li class="third-menu-item">
+                      <a href="/co-so/phong-thi-nghiem">Phòng thí nghiệm</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item"><a href="/news/index.html">Tin tức</a></li>
+            <li class="menu-item has-submenu">
+              <span class="menu-label">Tuyển sinh</span>
+              <ul class="submenu">
+                <li class="submenu-item">
+                  <a href="../enrollment/index.html">Thông tin tuyển sinh</a>
+                </li>
+                <li class="submenu-item">
+                  <a href="/tuyen-sinh/quy-che">Quy chế tuyển sinh</a>
+                </li>
+                <li class="submenu-item">
+                  <a href="/tuyen-sinh/ket-qua">Kết quả tuyển sinh</a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item"><a href="#">Liên hệ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <header class="contact-header">
+        <h1>LIÊN HỆ TRƯỜNG THPT NAM ĐÀN 1</h1>
+        <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
+      </header>
+
+      <div class="contact-content">
+        <div class="contact-info">
+          <h2>Thông Tin Liên Hệ</h2>
+          <div class="contact-details">
+            <p>
+              <strong>🏫 Địa chỉ:</strong> Thị trấn Nam Đàn, huyện Nam Đàn, tỉnh
+              Nghệ An
+            </p>
+            <p><strong>☎️ Điện thoại:</strong> (0238) 3822 211</p>
+            <p><strong>✉️ Email:</strong> c3namdan1@nghean.edu.vn</p>
+            <p>
+              <strong>🕒 Giờ làm việc:</strong> Thứ 2 - Thứ 7 : 7:00 - 16:30
+            </p>
+          </div>
+
+          <div>
+            <h3>Các Phòng Ban</h3>
+            <p><strong>Văn phòng:</strong> (0238) 3822 211</p>
+            <p><strong>Phòng Đào tạo:</strong> (0238) 3822 211</p>
+            <p><strong>Phòng Tuyển sinh:</strong> (0238) 3822 211</p>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h2>Gửi Tin Nhắn Cho Chúng Tôi</h2>
+          <form>
+            <div class="form-group">
+              <label for="name">Họ và Tên</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Địa Chỉ Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Số Điện Thoại</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+            <div class="form-group">
+              <label for="message">Nội Dung Tin Nhắn</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Gửi Tin Nhắn</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="map-section">
+        <h2>Vị Trí Của Chúng Tôi</h2>
+        <div
+          class="placeholder-map"
+          style="
+            background-color: #f1f1f1;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3779.286741892623!2d105.49597807465622!3d18.695976363793825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3139c392dfd02051%3A0xa7113255fc9c1041!2zVHLGsOG7nW5nIFRIUFQgTmFtIMSQw6BuIDE!5e0!3m2!1svi!2s!4v1732644505118!5m2!1svi!2s"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Trường THPT Nam Đàn 1</h3>
+          <p>Địa chỉ: Nam Đàn, Nghệ An</p>
+          <p>Điện thoại: (0238) 3869 XXX</p>
+          <p>Email: thptnamdan1@nghean.edu.vn</p>
+        </div>
+        <div class="footer-section">
+          <h3>Liên kết nhanh</h3>
+          <ul>
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#">Tin tức</a></li>
+            <li><a href="#">Tuyển sinh</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Kết nối</h3>
+          <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Youtube</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

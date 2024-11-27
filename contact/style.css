@@ -1,0 +1,103 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --background-color: #f4f6f7;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: var(--background-color);
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.contact-header {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+  margin-bottom: 40px;
+}
+.contact-content {
+  display: flex;
+  gap: 40px;
+}
+.contact-info {
+  flex: 1;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.contact-form {
+  flex: 1;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.contact-info h2,
+.contact-form h2 {
+  color: var(--secondary-color);
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.contact-details {
+  margin-bottom: 20px;
+}
+.contact-details p {
+  margin-bottom: 10px;
+}
+.icon {
+  color: var(--secondary-color);
+  margin-right: 10px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.submit-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.submit-btn:hover {
+  background-color: #2980b9;
+}
+.map-section {
+  margin-top: 40px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.map-section h2 {
+  color: var(--secondary-color);
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}

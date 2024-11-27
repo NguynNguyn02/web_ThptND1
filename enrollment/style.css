@@ -1,0 +1,106 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --background-color: #f4f6f7;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: var(--background-color);
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.header {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+}
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+.admission-info {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+}
+.info-column {
+  flex: 1;
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.info-column:hover {
+  transform: translateY(-10px);
+}
+.info-column h2 {
+  color: var(--secondary-color);
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.requirement-list {
+  list-style-type: none;
+}
+.requirement-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  align-items: center;
+}
+.requirement-list li::before {
+  content: "✓";
+  color: var(--secondary-color);
+  margin-right: 10px;
+  font-weight: bold;
+}
+.important-dates {
+  background-color: #e74c3c;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  text-align: center;
+}
+.contact-section {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.contact-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+.contact-info {
+  display: flex;
+  justify-content: space-between;
+}
+.contact-details {
+  flex: 1;
+}
+.action-button {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.action-button:hover {
+  background-color: #2980b9;
+}

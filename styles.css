@@ -591,3 +591,27 @@ body {
   background-color: #cccccc; /* Màu nền cho nút không hoạt động */
   cursor: not-allowed; /* Con trỏ không cho phép */
 }
+/* Login and Admin Styles */
+header {
+  position: relative;
+}
+
+.login-section {
+  position: absolute;
+  top: 10px; /* Khoảng cách từ trên cùng */
+  right: 10px; /* Khoảng cách từ bên phải */
+  font-size: 16px; /* Cỡ chữ */
+  font-weight: bold;
+}
+
+.login-section a {
+  background-color: #00ff9d;
+  padding: 2px;
+  text-decoration: none;
+  color: #007bff; /* Màu chữ */
+  transition: color 0.3s ease;
+}
+
+.login-section a:hover {
+  color: #0056b3; /* Màu chữ khi hover */
+}

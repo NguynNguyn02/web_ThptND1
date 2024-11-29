@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hệ Thống Quản Lý Admin</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      #postList,
+      #userList {
+        margin-top: 20px;
+      }
+      .post-item,
+      .user-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .tabs {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .tab {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        margin-right: 5px;
+      }
+      .tab.active {
+        background-color: #007bff;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="loginContainer">
+      <h2>Đăng Nhập</h2>
+      <div class="form-group">
+        <label>Tên đăng nhập:</label>
+        <input type="text" id="loginUsername" />
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu:</label>
+        <input type="password" id="loginPassword" />
+      </div>
+      <button onclick="login()">Đăng Nhập</button>
+    </div>
+
+    <div class="container" id="adminContainer" style="display: none">
+      <div class="tabs">
+        <div class="tab active" onclick="showTab('posts')">
+          Quản Lý Bài Viết
+        </div>
+        <div class="tab" onclick="showTab('users')">Quản Lý Tài Khoản</div>
+      </div>
+
+      <div id="postsSection">
+        <h2>Quản Lý Bài Viết</h2>
+        <div class="form-group">
+          <label>Tiêu đề:</label>
+          <input type="text" id="postTitle" />
+        </div>
+        <div class="form-group">
+          <label>Nội dung:</label>
+          <textarea id="postContent" rows="4"></textarea>
+        </div>
+        <button onclick="addPost()">Thêm Bài Viết</button>
+
+        <div id="postList"></div>
+      </div>
+
+      <div id="usersSection" style="display: none">
+        <h2>Quản Lý Tài Khoản</h2>
+        <div class="form-group">
+          <label>Tên đăng nhập:</label>
+          <input type="text" id="userUsername" />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu:</label>
+          <input type="password" id="userPassword" />
+        </div>
+        <div class="form-group">
+          <label>Vai trò:</label>
+          <select id="userRole">
+            <option value="user">Người dùng</option>
+            <option value="admin">Quản trị viên</option>
+          </select>
+        </div>
+        <button onclick="addUser()">Thêm Tài Khoản</button>
+
+        <div id="userList"></div>
+      </div>
+    </div>
+
+    <script>
+      // Dữ liệu giả lập
+      let users = JSON.parse(localStorage.getItem("users")) || [
+        { username: "admin", password: "admin", role: "admin" },
+      ];
+      let posts = JSON.parse(localStorage.getItem("posts")) || [];
+      let currentUser = null;
+
+      function showLogin() {
+        document.getElementById("loginContainer").style.display = "block";
+        document.getElementById("registerContainer").style.display = "none";
+      }
+
+      function showRegister() {
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("registerContainer").style.display = "block";
+      }
+
+      function login() {
+        const username = document.getElementById("loginUsername").value;
+        const password = document.getElementById("loginPassword").value;
+
+        const user = users.find(
+          (u) => u.username === username && u.password === password
+        );
+
+        if (user) {
+          currentUser = user;
+          document.getElementById("loginContainer").style.display = "none";
+          document.getElementById("adminContainer").style.display = "block";
+          renderPosts();
+          renderUsers();
+        } else {
+          alert("Đăng nhập thất bại");
+        }
+      }
+
+      function register() {
+        const username = document.getElementById("registerUsername").value;
+        const password = document.getElementById("registerPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          alert("Mật khẩu không khớp");
+          return;
+        }
+
+        if (users.some((u) => u.username === username)) {
+          alert("Tên đăng nhập đã tồn tại");
+          return;
+        }
+
+        const newUser = { username, password, role: "user" };
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Đăng ký thành công");
+        showLogin();
+      }
+
+      function addPost() {
+        const title = document.getElementById("postTitle").value;
+        const content = document.getElementById("postContent").value;
+
+        if (!title || !content) {
+          alert("Vui lòng nhập đầy đủ thông tin");
+          return;
+        }
+
+        const newPost = {
+          id: Date.now(),
+          title,
+          content,
+          author: currentUser.username,
+        };
+
+        posts.push(newPost);
+        localStorage.setItem("posts", JSON.stringify(posts));
+        renderPosts();
+
+        // Xóa các trường nhập
+        document.getElementById("postTitle").value = "";
+        document.getElementById("postContent").value = "";
+      }
+
+      function renderPosts() {
+        const postList = document.getElementById("postList");
+        postList.innerHTML = "";
+
+        posts.forEach((post) => {
+          const postElement = document.createElement("div");
+          postElement.className = "post-item";
+          postElement.innerHTML = `
+            <div>
+              <strong>${post.title}</strong>
+              <p>${post.content}</p>
+              <small>Tác giả: ${post.author}</small>
+            </div>
+            <div>
+              <button onclick="editPost(${post.id})">Sửa</button>
+              <button onclick="deletePost(${post.id})">Xóa</button>
+            </div>
+          `;
+          postList.appendChild(postElement);
+        });
+      }
+
+      function editPost(id) {
+        const post = posts.find((p) => p.id === id);
+        if (post) {
+          const newTitle = prompt("Nhập tiêu đề mới:", post.title);
+          const newContent = prompt("Nhập nội dung mới:", post.content);
+
+          if (newTitle !== null && newContent !== null) {
+            post.title = newTitle;
+            post.content = newContent;
+            localStorage.setItem("posts", JSON.stringify(posts));
+            renderPosts();
+          }
+        }
+      }
+
+      function deletePost(id) {
+        if (confirm("Bạn có chắc muốn xóa bài viết này?")) {
+          posts = posts.filter((p) => p.id !== id);
+          localStorage.setItem("posts", JSON.stringify(posts));
+          renderPosts();
+        }
+      }
+
+      function addUser() {
+        const username = document.getElementById("userUsername").value;
+        const password = document.getElementById("userPassword").value;
+        const role = document.getElementById("userRole").value;
+
+        if (!username || !password) {
+          alert("Vui lòng nhập đầy đủ thông tin");
+          return;
+        }
+
+        if (users.some((u) => u.username === username)) {
+          alert("Tên đăng nhập đã tồn tại");
+          return;
+        }
+
+        const newUser = { username, password, role };
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+        renderUsers();
+
+        // Xóa các trường nhập
+        document.getElementById("userUsername").value = "";
+        document.getElementById("userPassword").value = "";
+      }
+
+      function renderUsers() {
+        const userList = document.getElementById("userList");
+        userList.innerHTML = "";
+
+        users.forEach((user) => {
+          const userElement = document.createElement("div");
+          userElement.className = "user-item";
+          userElement.innerHTML = `
+            <div>
+              <strong>${user.username}</strong>
+              <p>Vai trò: ${user.role}</p>
+            </div>
+            <div>
+              <button onclick="editUser('${user.username}')">Sửa</button>
+              <button onclick="deleteUser('${user.username}')">Xóa</button>
+            </div>
+          `;
+          userList.appendChild(userElement);
+        });
+      }
+
+      function editUser(username) {
+        const user = users.find((u) => u.username === username);
+        if (user) {
+          const newPassword = prompt("Nhập mật khẩu mới:", user.password);
+          const newRole = prompt("Nhập vai trò mới (user/admin):", user.role);
+
+          if (newPassword !== null && newRole !== null) {
+            user.password = newPassword;
+            user.role = newRole;
+            localStorage.setItem("users", JSON.stringify(users));
+            renderUsers();
+          }
+        }
+      }
+
+      function deleteUser(username) {
+        if (username === currentUser.username) {
+          alert("Bạn không thể xóa tài khoản của chính mình");
+          return;
+        }
+
+        if (confirm("Bạn có chắc muốn xóa tài khoản này?")) {
+          users = users.filter((u) => u.username !== username);
+          localStorage.setItem("users", JSON.stringify(users));
+          renderUsers();
+        }
+      }
+
+      function showTab(tab) {
+        const tabs = document.querySelectorAll(".tab");
+        const postsSection = document.getElementById("postsSection");
+        const usersSection = document.getElementById("usersSection");
+
+        tabs.forEach((t) => t.classList.remove("active"));
+        event.target.classList.add("active");
+
+        if (tab === "posts") {
+          postsSection.style.display = "block";
+          usersSection.style.display = "none";
+        } else {
+          postsSection.style.display = "none";
+          usersSection.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>

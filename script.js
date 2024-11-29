@@ -34,6 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
       img: "./image/chienthangdienbienphu.webp",
       link: "chi-tiet-bai-viet-3.html",
     },
+    {
+      title:
+        "Ý nghĩa lịch sử của chiến thắng Điện Biện Phủ (07/5/1954) và chiến thắng 30/4/1975",
+      excerpt:
+        "Mấy chục năm trôi qua, chiến thắng Điện Biện Phủ (07/5/1954) và chiến thắng 30/4/1975 vẫn là những thắng lợi vĩ đại đã ghi vào lịch sử dân tộc Việt Nam như những mốc son chói lọi trong thế kỷ XX. Đây là chiến thắng của chủ nghĩa yêu nước, ý chí bất khuất, kiên cường của dân tộc Việt Nam được  hun đúc qua hàng nghìn năm lịch sử... Ý nghĩa, tầm vóc, những bài học lịch sử của những sự kiện lịch sử này vẫn còn nguyên giá trị trong sự nghiệp xây dựng và bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa hiện nay.",
+      img: "./image/chienthangdienbienphu.webp",
+      link: "chi-tiet-bai-viet-3.html",
+    },
   ];
 
   let currentSlide = 0;
@@ -139,21 +147,4 @@ nextBtn.addEventListener("click", () => {
     displayPage(currentPage);
     updatePagination();
   }
-});
-
-// Hiển thị trang đầu tiên khi tải trang
-displayPage(currentPage);
-updatePagination();
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("/header.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById("header-placeholder").innerHTML = data;
-    });
-
-  fetch("/footer.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    });
 });

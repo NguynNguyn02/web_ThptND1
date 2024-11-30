@@ -147,4 +147,6 @@ nextBtn.addEventListener("click", () => {
     displayPage(currentPage);
     updatePagination();
   }
+
 });
+

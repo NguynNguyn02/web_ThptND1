@@ -3,7 +3,6 @@ body {
   background-color: #f4f6f9;
   margin: 0;
   padding: 0;
-  height: 100vh; /* Đặt chiều cao của body bằng chiều cao màn hình */
   display: flex;
   justify-content: center; /* Căn giữa theo chiều ngang */
   align-items: center; /* Căn giữa theo chiều dọc */

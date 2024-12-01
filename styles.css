@@ -3,7 +3,7 @@
   --secondary-color: #e2e8f0;
   --text-color: #2d3748;
   --white: #ffffff;
-  --gray-light: #f7fafc;
+  --gray-light: #e2e8f0;
   --gray-dark: #4a5568;
 }
 
@@ -277,6 +277,7 @@ body {
 .slider {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  will-change: transform;
 }
 
 .slide {
@@ -347,7 +348,7 @@ body {
   display: block; /* Đảm bảo thẻ a bao quanh toàn bộ bài viết */
   background-color: var(--white);
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--primary-color);
   overflow: hidden;
   text-decoration: none; /* Loại bỏ gạch chân cho liên kết */
 }
@@ -365,12 +366,20 @@ body {
 .news-excerpt {
   font-size: 0.9rem;
   color: var(--gray-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .news-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+}
+.news-content {
+  padding: 8px;
 }
 
 /* Notice List */
@@ -384,14 +393,23 @@ body {
   background: var(--white);
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--primary-color);
   transition: transform 0.3s;
 }
 
 .notice-item:hover {
   transform: translateX(4px);
+  will-change: transform;
+}
+.notice-item a {
+  text-decoration: none;
 }
 
+.notice-item a:hover {
+  color: var(
+    --primary-color
+  ); /* Tuỳ chỉnh nếu muốn hiển thị gạch chân khi hover */
+}
 .notice-item h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
@@ -457,6 +475,9 @@ body {
   margin-right: 20px; /* Thêm khoảng cách giữa slider và news-section */
 }
 
+.slider-container img {
+  max-height: 300px;
+}
 /* News Section */
 .news-section {
   flex: 1; /* Chiếm 50% chiều rộng */
@@ -494,6 +515,17 @@ body {
   width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
   height: auto; /* Giữ tỷ lệ hình ảnh */
   border-radius: 10px; /* Bo góc cho hình ảnh */
+}
+@media (max-width: 768px) {
+  .slider-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .slider-container,
+  .news-section {
+    max-width: 100%;
+    margin-right: 0;
+  }
 }
 
 .prev-btn,
@@ -584,34 +616,74 @@ body {
 }
 
 .pagination button:hover {
-  background-color: #0056b3; /* Màu nền khi di chuột */
+  background-color: #0056b3;
 }
 
 .pagination button:disabled {
-  background-color: #cccccc; /* Màu nền cho nút không hoạt động */
-  cursor: not-allowed; /* Con trỏ không cho phép */
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 /* Login and Admin Styles */
-header {
-  position: relative;
-}
-
 .login-section {
   position: absolute;
-  top: 10px; /* Khoảng cách từ trên cùng */
-  right: 10px; /* Khoảng cách từ bên phải */
-  font-size: 16px; /* Cỡ chữ */
-  font-weight: bold;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
 }
-
-.login-section a {
-  background-color: #00ff9d;
-  padding: 2px;
+.login-btn,
+.user-info {
+  color: white;
+  padding: 10px 10px;
+  border-radius: 15px;
   text-decoration: none;
-  color: #007bff; /* Màu chữ */
-  transition: color 0.3s ease;
+  margin-left: 5px;
+  border: #1052c5;
 }
-
-.login-section a:hover {
-  color: #0056b3; /* Màu chữ khi hover */
+.user-info {
+  background-color: #0056b3;
+}
+#loginModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#loginModal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 300px;
+  text-align: center;
+}
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+}
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.modal-content button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.error-message {
+  color: red;
+  margin-bottom: 10px;
 }

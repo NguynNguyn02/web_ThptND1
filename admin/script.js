@@ -1,65 +1,43 @@
-// Dữ liệu giả lập
-let users = JSON.parse(localStorage.getItem("users")) || [];
+// Lưu trữ dữ liệu người dùng và bài viết
+let users = JSON.parse(localStorage.getItem("users")) || [
+  { username: "admin", password: "admin", role: "admin" },
+];
 let posts = JSON.parse(localStorage.getItem("posts")) || [];
-let currentUser = null;
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-function showLogin() {
-  document.getElementById("loginContainer").style.display = "block";
-  document.getElementById("registerContainer").style.display = "none";
+// Kiểm tra quyền truy cập
+if (!currentUser || currentUser.role !== "admin") {
+  alert("Bạn không có quyền truy cập trang quản trị");
+  window.location.href = "/index.html";
 }
 
-function showRegister() {
-  document.getElementById("loginContainer").style.display = "none";
-  document.getElementById("registerContainer").style.display = "block";
-}
+// Hiển thị thông tin người dùng
+document.getElementById(
+  "userInfo"
+).textContent = `Xin chào, ${currentUser.username}`;
 
-function login() {
-  const username = document.getElementById("loginUsername").value;
-  const password = document.getElementById("loginPassword").value;
+// Quản lý tab
+document.querySelectorAll(".tab").forEach((tab) => {
+  tab.addEventListener("click", function () {
+    document
+      .querySelectorAll(".tab")
+      .forEach((t) => t.classList.remove("active"));
+    document
+      .querySelectorAll(".section")
+      .forEach((s) => s.classList.remove("active"));
 
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
-  if (user) {
-    currentUser = user;
-    document.getElementById("loginContainer").style.display = "none";
-    document.getElementById("adminContainer").style.display = "block";
-    renderPosts();
-  } else {
-    alert("Đăng nhập thất bại");
-  }
-}
+    this.classList.add("active");
+    document
+      .getElementById(this.dataset.section + "Section")
+      .classList.add("active");
+  });
+});
 
-function register() {
-  const username = document.getElementById("registerUsername").value;
-  const password = document.getElementById("registerPassword").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-
-  if (password !== confirmPassword) {
-    alert("Mật khẩu không khớp");
-    return;
-  }
-
-  if (users.some((u) => u.username === username)) {
-    alert("Tên đăng nhập đã tồn tại");
-    return;
-  }
-
-  const newUser = { username, password };
-  users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users));
-  alert("Đăng ký thành công");
-  showLogin();
-}
-
-function addPost() {
+// Thêm bài viết
+document.getElementById("postForm").addEventListener("submit", function (e) {
+  e.preventDefault();
   const title = document.getElementById("postTitle").value;
   const content = document.getElementById("postContent").value;
-
-  if (!title || !content) {
-    alert("Vui lòng nhập đầy đủ thông tin");
-    return;
-  }
 
   const newPost = {
     id: Date.now(),
@@ -75,30 +53,32 @@ function addPost() {
   // Xóa các trường nhập
   document.getElementById("postTitle").value = "";
   document.getElementById("postContent").value = "";
-}
+});
 
+// Render danh sách bài viết
 function renderPosts() {
   const postList = document.getElementById("postList");
   postList.innerHTML = "";
 
   posts.forEach((post) => {
-    const postElement = document.createElement("div");
-    postElement.className = "post-item";
-    postElement.innerHTML = `
+    const postItem = document.createElement("div");
+    postItem.className = "list-item";
+    postItem.innerHTML = `
               <div>
                   <strong>${post.title}</strong>
                   <p>${post.content}</p>
                   <small>Tác giả: ${post.author}</small>
               </div>
               <div>
-                  <button onclick="editPost(${post.id})">Sửa</button>
-                  <button onclick="deletePost(${post.id})">Xóa</button>
+                  <button onclick="editPost(${post.id})" class="btn btn-secondary">Sửa</button>
+                  <button onclick="deletePost(${post.id})" class="btn" style="background-color:red;">Xóa</button>
               </div>
           `;
-    postList.appendChild(postElement);
+    postList.appendChild(postItem);
   });
 }
 
+// Sửa bài viết
 function editPost(id) {
   const post = posts.find((p) => p.id === id);
   if (post) {
@@ -114,6 +94,7 @@ function editPost(id) {
   }
 }
 
+// Xóa bài viết
 function deletePost(id) {
   if (confirm("Bạn có chắc muốn xóa bài viết này?")) {
     posts = posts.filter((p) => p.id !== id);
@@ -121,3 +102,80 @@ function deletePost(id) {
     renderPosts();
   }
 }
+
+// Thêm tài khoản
+document.getElementById("userForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const username = document.getElementById("userUsername").value;
+  const password = document.getElementById("userPassword").value;
+  const role = document.getElementById("userRole").value;
+
+  if (users.some((u) => u.username === username)) {
+    alert("Tên đăng nhập đã tồn tại");
+    return;
+  }
+
+  users.push({ username, password, role });
+  localStorage.setItem("users", JSON.stringify(users));
+  renderUsers();
+
+  // Xóa các trường nhập
+  document.getElementById("userUsername").value = "";
+  document.getElementById("userPassword").value = "";
+});
+
+// Render danh sách tài khoản
+function renderUsers() {
+  const userList = document.getElementById("userList");
+  userList.innerHTML = "";
+
+  users.forEach((user) => {
+    const userItem = document.createElement("div");
+    userItem.className = "list-item";
+    userItem.innerHTML = `
+              <div>
+                  <strong>${user.username}</strong>
+                  <p>Vai trò: ${user.role}</p>
+              </div>
+              <div>
+                  <button onclick="editUser('${user.username}')" class="btn btn-secondary">Sửa</button>
+                  <button onclick="deleteUser('${user.username}')" class="btn" style="background-color:red;">Xóa</button>
+              </div>
+          `;
+    userList.appendChild(userItem);
+  });
+}
+
+// Sửa tài khoản
+function editUser(username) {
+  const user = users.find((u) => u.username === username);
+  if (user) {
+    const newPassword = prompt("Nhập mật khẩu mới:", user.password);
+    const newRole = prompt("Nhập vai trò mới (user/admin):", user.role);
+
+    if (newPassword !== null && newRole !== null) {
+      user.password = newPassword;
+      user.role = newRole;
+      localStorage.setItem("users", JSON.stringify(users));
+      renderUsers();
+    }
+  }
+}
+
+// Xóa tài khoản
+function deleteUser(username) {
+  if (username === currentUser.username) {
+    alert("Bạn không thể xóa tài khoản của chính mình");
+    return;
+  }
+
+  if (confirm("Bạn có chắc muốn xóa tài khoản này?")) {
+    users = users.filter((u) => u.username !== username);
+    localStorage.setItem("users", JSON.stringify(users));
+    renderUsers();
+  }
+}
+
+// Render initial lists
+renderPosts();
+renderUsers();

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       excerpt:
         "Thực hiện kế hoạch tổ chức các hoạt động thiết thực, ý nghĩa kỉ niệm 94 năm ngày Phụ nữ Việt Nam, nhằm tạo sân chơi bổ ích giúp các đoàn viên Công đoàn gắn kết, phát huy tinh thần thể dục thể thao, chiều ngày 19/10, Công đoàn trường THPT Nam Đàn 1 đã tổ chức giải bóng chuyền hơi nam- nữ chào mừng Ngày phụ nữ Việt Nam 20/10.",
       img: "./image/ngayphunuvietnam.jpg",
-      link: "chi-tiet-bai-viet-2.html",
+      link: "/news/news-detail/phu-nu-viet-nam/index.html",
     },
     {
       title:
@@ -32,15 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       excerpt:
         "Mấy chục năm trôi qua, chiến thắng Điện Biện Phủ (07/5/1954) và chiến thắng 30/4/1975 vẫn là những thắng lợi vĩ đại đã ghi vào lịch sử dân tộc Việt Nam như những mốc son chói lọi trong thế kỷ XX. Đây là chiến thắng của chủ nghĩa yêu nước, ý chí bất khuất, kiên cường của dân tộc Việt Nam được  hun đúc qua hàng nghìn năm lịch sử... Ý nghĩa, tầm vóc, những bài học lịch sử của những sự kiện lịch sử này vẫn còn nguyên giá trị trong sự nghiệp xây dựng và bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa hiện nay.",
       img: "./image/chienthangdienbienphu.webp",
-      link: "chi-tiet-bai-viet-3.html",
-    },
-    {
-      title:
-        "Ý nghĩa lịch sử của chiến thắng Điện Biện Phủ (07/5/1954) và chiến thắng 30/4/1975",
-      excerpt:
-        "Mấy chục năm trôi qua, chiến thắng Điện Biện Phủ (07/5/1954) và chiến thắng 30/4/1975 vẫn là những thắng lợi vĩ đại đã ghi vào lịch sử dân tộc Việt Nam như những mốc son chói lọi trong thế kỷ XX. Đây là chiến thắng của chủ nghĩa yêu nước, ý chí bất khuất, kiên cường của dân tộc Việt Nam được  hun đúc qua hàng nghìn năm lịch sử... Ý nghĩa, tầm vóc, những bài học lịch sử của những sự kiện lịch sử này vẫn còn nguyên giá trị trong sự nghiệp xây dựng và bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa hiện nay.",
-      img: "./image/chienthangdienbienphu.webp",
-      link: "chi-tiet-bai-viet-3.html",
+      link: "/news/news-detail/chien-thang-dien-bien-phu/index.html",
     },
   ];
 
@@ -109,44 +101,50 @@ document.addEventListener("DOMContentLoaded", () => {
   updateSlide(currentSlide);
   startSlideShow();
 });
-const notices = document.querySelectorAll(".notice-item");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const pageInfo = document.getElementById("pageInfo");
+document.addEventListener("DOMContentLoaded", () => {
+  const notices = document.querySelectorAll(".notice-item");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const pageInfo = document.getElementById("pageInfo");
 
-let currentPage = 1;
-const itemsPerPage = 3; // Số lượng thông báo hiển thị trên mỗi trang
-const totalPages = Math.ceil(notices.length / itemsPerPage);
-
-function displayPage(page) {
-  notices.forEach((notice, index) => {
-    notice.style.display =
-      index >= (page - 1) * itemsPerPage && index < page * itemsPerPage
-        ? "block"
-        : "none";
+  let currentPage = 1;
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(notices.length / itemsPerPage);
+  function displayPage(page) {
+    notices.forEach((notice, index) => {
+      notice.style.display =
+        index >= (page - 1) * itemsPerPage && index < page * itemsPerPage
+          ? "block"
+          : "none";
+    });
+    pageInfo.textContent = `Trang ${page} của ${totalPages}`;
+  }
+  function updatePagination() {
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+  }
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayPage(currentPage);
+      updatePagination();
+    }
   });
-  pageInfo.textContent = `Trang ${page} của ${totalPages}`;
-}
 
-function updatePagination() {
-  prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
-}
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      displayPage(currentPage);
+      updatePagination();
+    }
+  });
 
-prevBtn.addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
+  if (notices.length === 0) {
+    pageInfo.textContent = "Không có thông báo nào.";
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  } else {
     displayPage(currentPage);
     updatePagination();
   }
 });
-
-nextBtn.addEventListener("click", () => {
-  if (currentPage < totalPages) {
-    currentPage++;
-    displayPage(currentPage);
-    updatePagination();
-  }
-
-});
-
